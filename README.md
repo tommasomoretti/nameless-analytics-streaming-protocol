@@ -2,6 +2,8 @@
 
 
 ## Measurement Protocol
+Lorem ipsum
+
 ```bash
 set full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
 set origin="https://tommasomoretti.com"
