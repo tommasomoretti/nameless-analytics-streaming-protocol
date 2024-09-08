@@ -2,14 +2,12 @@
 
 ## Utility functions
 ### Get client id and session id value 
-(E.g.: full_endpoint_domain = 'https://gtm.namelessanalytics.com/tm/nameless')
 ```javascript
 const full_endpoint_domain = 'https://gtm.namelessanalytics.com/tm/nameless'
 const payload = {
   "event_name": "get_user_data", 
   "from_measurement_protocol": "No"
 }
-
 await get_user_data(full_endpoint_domain, payload)
 ```
 
@@ -24,14 +22,16 @@ parse_user_agent()
 ```
 
 ### Format timestamp into date 
-(E.g.: timestamp = 1724336713016 => '2024-08-22T14:25:13.016000') 
 ```javascript
+const timestamp = 1724336713016
 format_datetime(timestamp)
 ```
 
 ### Get Channel Grouping 
-(E.g.: source = 'facebook', campaign = 'test')
+
 ```javascript
+const source = 'facebook'
+const campaign = 'test'
 get_channel_grouping(source, campaign)
 ```
 
