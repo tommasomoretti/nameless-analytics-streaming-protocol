@@ -41,8 +41,8 @@ get_channel_grouping(source, campaign)
 | Field name                | Example value | Description                                  |
 |---------------------------|---------------|----------------------------------------------|
 | from_measurement_protocol | Yes           | Set to Yes for Measurament protocol requests |
-| event_date                | 2024-01-01    | Event date (do not use get_user_data)        |   
-| event_name                | purchase      | Event name                                   |
+| event_date                | 2024-01-01    | Event date                                   |
+| event_name                | purchase      | Event name (do not use get_user_data)        |
 | event_timestamp           | 1722607958646 | Event timestamp in milliseconds              |
 | client_id                 | | |
 | session_id                | | |
