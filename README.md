@@ -38,15 +38,16 @@ get_channel_grouping(source, campaign)
 ## Measurament protocol
 ### Required fields
 
-| Field name      | Example value | Description                     |
-|-----------------|---------------|---------------------------------|
-| event_date      | 2024-01-01    | Event date                      |   
-| event_name      | purchase      | Event name                      |
-| event_timestamp | 1722607958646 | Event timestamp in milliseconds |
-| client_id       | | |
-| session_id      | | |
-| page_id         | | |
-| event_id        | | |
+| Field name                | Example value | Description                     |
+|---------------------------|---------------|---------------------------------|
+| from_measurement_protocol |
+| event_date                | 2024-01-01    | Event date                      |   
+| event_name                | purchase      | Event name                      |
+| event_timestamp           | 1722607958646 | Event timestamp in milliseconds |
+| client_id                 | | |
+| session_id                | | |
+| page_id                   | | |
+| event_id                  | | |
 
 ### Send requests via Measurement Protocol
 ```bash
