@@ -38,12 +38,12 @@ get_channel_grouping(source, campaign)
 ## Measurament protocol
 ### Required fields
 
-| Field name                | Example value | Description                     |
-|---------------------------|---------------|---------------------------------|
-| from_measurement_protocol |
-| event_date                | 2024-01-01    | Event date                      |   
-| event_name                | purchase      | Event name                      |
-| event_timestamp           | 1722607958646 | Event timestamp in milliseconds |
+| Field name                | Example value | Description                                  |
+|---------------------------|---------------|----------------------------------------------|
+| from_measurement_protocol | Yes           | Set to Yes for Measurament protocol requests |
+| event_date                | 2024-01-01    | Event date                                   |   
+| event_name                | purchase      | Event name                                   |
+| event_timestamp           | 1722607958646 | Event timestamp in milliseconds              |
 | client_id                 | | |
 | session_id                | | |
 | page_id                   | | |
@@ -88,9 +88,36 @@ curl -X POST "$full_endpoint" \
   -H "X-Gtm-Server-Preview: $gtm_preview_header" \
   -d "$payload"
 ```
+Response:
+```
+{
+   "status_code":200,
+   "response":"🟢 Request claimed succesfully",
+   "data":{
+      "event_date":"2024-09-08",
+      "event_name":"purchase",
+      "event_timestamp":"1725796383000",
+      "from_measurement_protocol":"Yes",
+      "client_id":"8062031855",
+      "session_id":"8062031855_2527092995",
+      "event_data":{
+         "page_id":"8062031855_2527092995-1234328035",
+         "event_id":"8062031855_2527092995-1234328035_8765438291",
+         "country":"IT",
+         "city":"venice",
+         "ss_hostname":"gtm.tommasomoretti.com",
+         "ss_container_id":"GTM-KQG9ZNG",
+         "ss_manual_parameter_firestore":"abcd",
+         "ss_manual_parameter":"abcd"
+      },
+      "received_event_timestamp":1725796383995,
+      "content_length":298
+   }
+}
+```
 
-
-### Get user data via Measurement Protocol (DONT DO THIS!)
+### Get user data via Measurement Protocol
+Nameless analytics retrives user_id, session_id and page_id values from requests browser cookie. So, don't do this.
 ```bash
 # Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
@@ -114,4 +141,11 @@ curl -X POST "$full_endpoint" \
   -H "origin: $origin" \
   -H "X-Gtm-Server-Preview: $gtm_preview_header" \
   -d "$payload"
+```
+Response:
+```
+{
+   "status_code":500,
+   "response":"🔴 You can not retreive user_data from measurement protocol"
+}
 ```
