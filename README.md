@@ -117,7 +117,7 @@ Response:
 ```
 
 ### Get user data via Measurement Protocol
-Nameless analytics retrives user_id, session_id and page_id values from requests browser cookie. So, don't do this.
+Don't do this. Nameless analytics retrives client_id, session_id and page_id values from requests browser cookie. For example, since requests like this one do not contain Nameless Analytics' standard cookies, if you try to retrieve user data via the get_user_data event, a new client_id, session_id, and page_id will be generated with each request.
 ```bash
 # Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
