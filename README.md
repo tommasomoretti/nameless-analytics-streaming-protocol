@@ -81,7 +81,7 @@ get_channel_grouping(source, campaign_name)
 ### Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
 origin="https://tommasomoretti.com"
-gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5MWEzYzMxNzJiYTI3OWM2MDYxMg=="
+gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5M2QwMzEwMWIwM2JhNzBiNjY4Mg=="
 
 ### Request payload required fields
 event_date=$(date +%Y-%m-%d)
@@ -154,7 +154,7 @@ For this reason the response will be 500 - 🔴 You can not retreive user_data f
 # Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
 origin="https://tommasomoretti.com"
-gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5MWEzYzMxNzJiYTI3OWM2MDYxMg=="
+gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5M2QwMzEwMWIwM2JhNzBiNjY4Mg=="
 
 # Request payload required fields
 event_name="get_user_data"
