@@ -13,7 +13,7 @@ Usage:
 const full_endpoint_domain = 'https://gtm.namelessanalytics.com/tm/nameless'
 const payload = {
   "event_name": "get_user_data", 
-  "from_measurement_protocol": "No"
+  "event_origin": "Measurement Protocol"
 }
 await get_user_data(full_endpoint_domain, payload)
 ```
@@ -66,15 +66,15 @@ get_channel_grouping(source, campaign_name)
 ### Required fields
 
 | Field name                | Example value | Description                                  |
-|---------------------------|---------------|----------------------------------------------|
-| from_measurement_protocol | Yes           | Set to Yes for Measurament protocol requests |
-| event_date                | 2024-01-01    | Event date                                   |
-| event_name                | purchase      | Event name (do not use get_user_data)        |
-| event_timestamp           | 1722607958646 | Event timestamp in milliseconds              |
-| client_id                 | | |
-| session_id                | | |
-| page_id                   | | |
-| event_id                  | | |
+|-----------------|---------------|----------------------------------------------|
+| event_origin    | Yes           | Set to Yes for Measurament protocol requests |
+| event_date      | 2024-01-01    | Event date                                   |
+| event_name      | purchase      | Event name (do not use get_user_data)        |
+| event_timestamp | 1722607958646 | Event timestamp in milliseconds              |
+| client_id       | | |
+| session_id      | | |
+| page_id         | | |
+| event_id        | | |
 
 ### Send requests via Measurement Protocol
 ```bash
@@ -97,7 +97,7 @@ payload=$(cat <<EOF
   "event_date": "$event_date",
   "event_name": "$event_name",
   "event_timestamp": "${event_timestamp}000",
-  "from_measurement_protocol": "Yes",
+  "event_origin": "Measurement Protocol",
   "client_id": "$client_id",
   "session_id": "$session_id",
   "event_data": {
@@ -124,7 +124,7 @@ Response:
       "event_date":"2024-09-08",
       "event_name":"purchase",
       "event_timestamp":"1725796383000",
-      "from_measurement_protocol":"Yes",
+      "event_origin":"Measurement Protocol",
       "client_id":"8062031855",
       "session_id":"8062031855_2527092995",
       "event_data":{
@@ -162,7 +162,7 @@ event_name="get_user_data"
 payload=$(cat <<EOF
 {
   "event_name": "$event_name",
-  "from_measurement_protocol": "Yes"
+  "event_origin": "Measurement Protocol"
 }
 EOF
 )
