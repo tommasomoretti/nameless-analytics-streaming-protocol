@@ -13,7 +13,7 @@ Usage:
 const full_endpoint_domain = 'https://gtm.namelessanalytics.com/tm/nameless'
 const payload = {
   "event_name": "get_user_data", 
-  "event_origin": "Measurement Protocol"
+  "event_origin": "Website"
 }
 await get_user_data(full_endpoint_domain, payload)
 ```
@@ -115,6 +115,7 @@ curl -X POST "$full_endpoint" \
   -H "X-Gtm-Server-Preview: $gtm_preview_header" \
   -d "$payload"
 ```
+
 Response:
 ```
 {
