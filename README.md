@@ -56,7 +56,7 @@ curl -X POST "$full_endpoint" \
 ```
 
 ### Send Measurement Protocol requests via Node JS
-```node
+```js
 /*
   NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
   NODE JS EXAMPLE CODE  
