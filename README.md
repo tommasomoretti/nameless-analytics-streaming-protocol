@@ -19,7 +19,7 @@
 ### Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
 origin="https://tommasomoretti.com"
-gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NGQxMzMyZmZkYWIwY2NmNWFjNg=="
+gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NTgwNWE0MDgxMzEyYjE5Mjg2Nw=="
 
 ### Request payload required fields
 event_date=$(date +%Y-%m-%d)
@@ -64,7 +64,6 @@ curl -X POST "$full_endpoint" \
   -H "origin: $origin" \
   -H "X-Gtm-Server-Preview: $gtm_preview_header" \
   -d "$payload"
-
 ```
 
 ## Send Measurement Protocol requests via Node JS
