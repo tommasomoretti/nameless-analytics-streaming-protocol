@@ -1,7 +1,7 @@
 ![Na logo beta](https://github.com/tommasomoretti/nameless-analytics/assets/29273232/7d4ded5e-4b79-46a2-b089-03997724fd10)
 
-## Measurament protocol
-### Required fields
+# Measurament protocol
+## Required fields
 
 | Field name                | Example value | Description                 |
 |-----------------|---------------|---------------------------------------|
@@ -14,7 +14,7 @@
 | page_id         | | |
 | event_id        | | |
 
-### Send Measurement Protocol requests via Terminal
+## Send Measurement Protocol requests via Terminal
 ```bash
 ### Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
@@ -55,7 +55,7 @@ curl -X POST "$full_endpoint" \
   -d "$payload"
 ```
 
-### Send Measurement Protocol requests via Node JS
+## Send Measurement Protocol requests via Node JS
 ```js
 /*
   NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
@@ -167,7 +167,7 @@ axios.post(full_endpoint, payload, {headers})
   })
 ```
 
-### Send Measurement Protocol requests via Python 
+## Send Measurement Protocol requests via Python 
 ```python
 # NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
 # NODE JS EXAMPLE CODE  
@@ -284,11 +284,3 @@ except requests.exceptions.RequestException as e:
     except:
         print('🔴 Request failed:', str(e))
 ```
-
-
-### Get user data via Measurement Protocol
-Don't do this. 
-
-Nameless Analytics retrieves client_id, session_id, and page_id values from the browser's request cookies when handling a get_user_data event. Since requests made via the terminal do not contain Nameless Analytics' standard cookies, they are treated as the user's first event of their first visit, generating a new client_id, session_id, and page_id with each request.
-
-For this reason the response will be 500 - 🔴 You can not retreive user_data from measurement protocol
