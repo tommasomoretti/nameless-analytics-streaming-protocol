@@ -84,12 +84,12 @@ const event_timestamp = Date.now();
 const processing_event_timestamp = null;
 const event_origin = 'Measurement Protocol'
 const job_id = crypto.randomBytes(8).toString('hex');
-client_id = '005cKxwvVDPMjG3' // Modify this according to the current user's client_id
-user_id = null // Add it if exists
-user_log = 'Same user, same session'
-session_id = '005cKxwvVDPMjG3_kbNdatKCaN4EWb' // Modify this according to the current user's session_id
-event_name = 'purchase' // Modify this according to the event to be sent
-page_id = 'q4adxB8qx2toy' // Modify this according to the current user's page_id
+const client_id = '005cKxwvVDPMjG3' // Modify this according to the current user's client_id
+const user_id = null // Add it if exists
+const user_log = 'Same user, same session'
+const session_id = '005cKxwvVDPMjG3_kbNdatKCaN4EWb' // Modify this according to the current user's session_id
+const event_name = 'purchase' // Modify this according to the event to be sent
+const page_id = 'q4adxB8qx2toy' // Modify this according to the current user's page_id
 const event_id = page_id + crypto.randomBytes(13).toString('base64').replace(/[^a-zA-Z0-9]/g, '').slice(0, 13);
 
 
