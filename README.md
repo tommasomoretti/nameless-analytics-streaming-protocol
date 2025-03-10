@@ -14,9 +14,7 @@
 | page_id         | | |
 | event_id        | | |
 
-### Send requests via Measurement Protocol
-
-#### From Terminal
+### Send Measurement Protocol requests via Terminal
 ```bash
 ### Request configurations 
 full_endpoint="https://gtm.tommasomoretti.com/tm/nameless"
@@ -56,7 +54,7 @@ curl -X POST "$full_endpoint" \
   -d "$payload"
 ```
 
-#### From Node JS
+### Send Measurement Protocol requests via Node JS
 ```node
 /*
   NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
@@ -168,7 +166,7 @@ axios.post(full_endpoint, payload, {headers})
   })
 ```
 
-#### From Python 
+### Send Measurement Protocol requests via Python 
 ```python
 # NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
 # NODE JS EXAMPLE CODE  
