@@ -24,7 +24,8 @@ gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NGQxMzMyZmZkYWIw
 ### Request payload required fields
 event_date=$(date +%Y-%m-%d)
 event_name="purchase"
-event_timestamp=$(date -u +%s) 
+event_timestamp=$(date -u +%s)
+event_origin="Measurement Protocol"
 client_id="8062031855"
 session_id="8062031855_2527092995"
 page_id="1234328035"
@@ -35,7 +36,7 @@ payload=$(cat <<EOF
   "event_date": "$event_date",
   "event_name": "$event_name",
   "event_timestamp": "${event_timestamp}000",
-  "event_origin": "Measurement Protocol",
+  "event_origin": $event_origin,
   "client_id": "$client_id",
   "session_id": "$session_id",
   "event_data": {
