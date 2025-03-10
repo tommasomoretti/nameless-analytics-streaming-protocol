@@ -23,22 +23,33 @@ gtm_preview_header="ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NGQxMzMyZmZkYWIw
 
 ### Request payload required fields
 event_date=$(date +%Y-%m-%d)
-event_name="purchase"
-event_timestamp=$(date -u +%s)
+event_datetime=$(date -u +"%Y-%m-%dT%H:%M:%S.%3N000")
+event_timestamp=$(date -u +%s)000
+processing_event_timestamp="null"
 event_origin="Measurement Protocol"
-client_id="8062031855"
-session_id="8062031855_2527092995"
-page_id="1234328035"
-event_id="1234328035_8765438291"
+job_id="1234"
+client_id="005cKxwvVDPMjG3" # Modify this according to the current user's client_id
+user_id="null" # Add it if exists
+user_log="Same user, same session"
+session_id="005cKxwvVDPMjG3_kbNdatKCaN4EWb" # Modify this according to the current user's session_id
+event_name="purchase" # Modify this according to the event to be sent
+page_id="q4adxB8qx2toy" # Modify this according to the current user's page_id
+event_id="${page_id}_$(openssl rand -hex 6)"
 
+### JSON Payload
 payload=$(cat <<EOF
 {
   "event_date": "$event_date",
-  "event_name": "$event_name",
-  "event_timestamp": "${event_timestamp}000",
-  "event_origin": $event_origin,
+  "event_datetime": "$event_datetime",
+  "event_timestamp": "$event_timestamp",
+  "processing_event_timestamp": $processing_event_timestamp,
+  "event_origin": "$event_origin",
+  "job_id": "$job_id",
   "client_id": "$client_id",
+  "user_id": $user_id,
+  "user_log": "$user_log",
   "session_id": "$session_id",
+  "event_name": "$event_name",
   "event_data": {
     "page_id": "$page_id",
     "event_id": "$event_id"
@@ -47,12 +58,13 @@ payload=$(cat <<EOF
 EOF
 )
 
-
+### Send Request
 curl -X POST "$full_endpoint" \
   -H "Content-Type: application/json" \
   -H "origin: $origin" \
   -H "X-Gtm-Server-Preview: $gtm_preview_header" \
   -d "$payload"
+
 ```
 
 ## Send Measurement Protocol requests via Node JS
