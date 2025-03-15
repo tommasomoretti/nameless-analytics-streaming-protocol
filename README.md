@@ -10,7 +10,7 @@ For an overview of how Nameless Analytics works [start from here](https://github
 
 Start from here:
 - [Required fields](#required-fields)
-- [Send Measurement Protocol requests](#send-measurement-protocol-requests)
+- [Send requests](#send-measurement-protocol-requests)
 
 
 
