@@ -3,6 +3,17 @@
 ---
 
 # Measurament protocol
+
+The Nameless Analytics Utility Functions is a set of functions used by [Nameless Analytics Client-side tracker tag](https://github.com/tommasomoretti/nameless-analytics-client-side-tracker-tag).
+
+For an overview of how Nameless Analytics works [start from here](https://github.com/tommasomoretti/nameless-analytics).
+
+Start from here:
+- [Required fields](#required-fields)
+- [Send Measurement Protocol requests](#send-measurement-protocol-requests)
+
+
+
 ## Required fields
 
 | Field name                | Example value | Description                 |
@@ -11,21 +22,13 @@
 | event_date      | 2024-01-01    | Event date                            |
 | event_name      | purchase      | Event name (do not use get_user_data) |
 | event_timestamp | 1722607958646 | Event timestamp in milliseconds       |
-| client_id       | | |
-| session_id      | | |
-| page_id         | | |
-| event_id        | | |
+| client_id       |               |                                       |
+| session_id      |               |                                       |
+| page_id         |               |                                       |
+| event_id        |               |                                       |
 
-## Send Measurement Protocol requests via Terminal
-```bash
 
-```
 
-## Send Measurement Protocol requests via Node JS
-```js
-
-```
-
-## Send Measurement Protocol requests via Python 
+## Send Measurement Protocol requests 
 ```python
 ```
