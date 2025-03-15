@@ -4,7 +4,7 @@
 
 # Measurament protocol
 
-The Nameless Analytics Utility Functions is a set of functions used by [Nameless Analytics Client-side tracker tag](https://github.com/tommasomoretti/nameless-analytics-client-side-tracker-tag).
+The Nameless Analytics Measurement Protocol is a method for send data to [Nameless Analytics Server-side client tag](https://github.com/tommasomoretti/nameless-analytics-server-side-client-tag).
 
 For an overview of how Nameless Analytics works [start from here](https://github.com/tommasomoretti/nameless-analytics).
 
