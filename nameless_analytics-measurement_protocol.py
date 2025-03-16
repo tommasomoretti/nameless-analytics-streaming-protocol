@@ -15,9 +15,13 @@ import secrets
 import json
 from datetime import datetime, timezone
 
-full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless'
-origin = 'https://tommasomoretti.com'
-gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NTgwZDIzMDZmNGY0ZDEwZmM2Mg=='
+
+# --------------------------------------------------------------------------------------------------------------
+
+
+full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless' # Modify this according to your GTM Server-side endpoint 
+origin = 'https://tommasomoretti.com' # Modify this according to request origin
+gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NTgwZDIzMDZmNGY0ZDEwZmM2Mg==' # Modify this according with GTM Server-side preview header 
 
 event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 event_datetime = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec='microseconds')
