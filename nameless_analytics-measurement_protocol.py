@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 
 full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless' # Modify this according to your GTM Server-side endpoint 
 origin = 'https://tommasomoretti.com' # Modify this according to request origin
-gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NTgwZDIzMDZmNGY0ZDEwZmM2Mg==' # Modify this according with GTM Server-side preview header 
+gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NjlhMDQ1OTkzNjA1NDgyYWUxZA==' # Modify this according with GTM Server-side preview header 
 
 event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 event_datetime = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec='microseconds')
@@ -36,18 +36,11 @@ event_name = 'purchase' # Modify this according to the event to be sent
 page_id = 'q4adxB8qx2toy' # Modify this according to the current user's page_id
 event_id = f'{page_id}_{secrets.token_hex(8)}'
 
-# Retrieve this information in real time calling window.get_last_consent_values() JavaScript utility function or later from BigQuery by taking it from the last event recorded on the page of the event to be sent
-respect_consent_mode = "No" # Not available when using window.get_last_consent_values(). Retrieve this information from the Nameless Analytics Client-side configuration variable tag configuration (optional).
-tracking_anonimization = "No" #  Not available when using window.get_last_consent_values(). Retrieve this information from the Nameless Analytics Client-side configuration variable tag configuration (optional).
-consent_type = "Update"
-ad_user_data = "Granted"
-ad_personalization = "Denied"
-ad_storage = "Granted"
-analytics_storage = "Granted"
-functionality_storage = "Granted"
-personalization_storage = "Granted"
-security_storage = "Granted"
 
+# --------------------------------------------------------------------------------------------------------------
+
+
+# Minimum required fields
 payload = {
     "event_date": event_date,
     "event_datetime": event_datetime,
@@ -56,26 +49,95 @@ payload = {
     "event_origin": event_origin,
     "job_id": job_id,
     "client_id": client_id,
-    "user_id": user_id,
     "session_id": session_id,
     "event_name": event_name,
+    "event_id": event_id,
     "event_data": {
         "page_id": page_id,
-        "event_id": event_id
-    },
-    "consent_data": {
-        "respect_consent_mode": respect_consent_mode,
-        "tracking_anonimization": tracking_anonimization,
-        "consent_type": consent_type,
-        "ad_user_data": ad_user_data,
-        "ad_personalization": ad_personalization,
-        "ad_storage": ad_storage,
-        "analytics_storage": analytics_storage,
-        "functionality_storage": functionality_storage,
-        "personalization_storage": personalization_storage,
-        "security_storage": security_storage
+
     }
 }
+
+
+# Recommended fields
+# {
+#   "user_data": {
+#     "user_id": "abcd1234"
+#   },
+#   "event_data": {
+#     "event_type": "page_view",
+#     "channel_grouping": "direct",
+#     "source": "direct",
+#     "campaign": null,
+#     "campaign_id": null,
+#     "campaign_term": null,
+#     "campaign_content": null,
+#     "country": "IT",
+#     "city": "venice",
+#     "page_title": "Tommaso Moretti | Freelance digital data analyst",
+#     "page_hostname_protocol": "https",
+#     "page_hostname": "tommasomoretti.com",
+#     "page_location": "/",
+#     "page_fragment": null,
+#     "page_query": null,
+#     "page_extension": null,
+#     "page_referrer": null,
+#     "cs_container_id": "GTM-PW7349P",
+#     "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+#     "browser_name": "Chrome",
+#     "browser_language": "it-IT",
+#     "browser_version": "135.0.0.0",
+#     "device_type": "desktop",
+#     "device_vendor": "Apple",
+#     "device_model": "Macintosh",
+#     "os_name": "Mac OS",
+#     "os_version": "10.15.7",
+#     "screen_size": "1512x982",
+#     "viewport_size": "1512x823",
+#     "page_language": "it"
+#   },
+#   "consent_data": { # Retrieve this information in real time calling window.get_last_consent_values() JavaScript utility function or later from BigQuery by taking it from the last event recorded on the page of the event to be sent
+#     "respect_consent_mode": "Yes", # Not available when using window.get_last_consent_values(). Retrieve this information from the Nameless Analytics Client-side configuration variable tag configuration (optional).
+#     "consent_type": "Update",
+#     "ad_user_data": "Denied",
+#     "ad_personalization": "Denied",
+#     "ad_storage": "Denied",
+#     "analytics_storage": "Granted",
+#     "functionality_storage": "Denied",
+#     "personalization_storage": "Denied",
+#     "security_storage": "Denied"
+#   }
+# }
+
+
+# Automatically added fields (do not add them manually, they will be overwritten by the server)
+# {
+#   "user_data": {
+#     "user_date": "2025-05-04",
+#     "user_timestamp": 1746342150300,
+#     "user_channel_grouping": "gtm_debugger",
+#     "user_source": "tagassistant.google.com",
+#     "user_campaign": null,
+#     "user_campaign_id": null,
+#   },
+#   "session_data": {
+#     "session_date": "2025-05-04",
+#     "session_timestamp": 1746342150300,
+#     "session_channel_grouping": "gtm_debugger",
+#     "session_source": "tagassistant.google.com",
+#     "session_campaign": null,
+#     "session_campaign_id": null
+#   },
+#   "event_data": {
+#     "ss_hostname": "gtm.tommasomoretti.com",
+#     "ss_container_id": "GTM-KQG9ZNG"
+#   },
+#   "client_id": "IQzbBl9NsUVV0YX",
+#   "session_id": "IQzbBl9NsUVV0YX_HPUfDT84KnVV7q",
+#   "processing_event_timestamp": 1746342471183,
+#   "content_length": 1371
+# }
+
 
 print("----- NAMELESS ANALYTICS -----")
 print("--------- DATA LOADER --------")
