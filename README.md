@@ -21,10 +21,10 @@ Start from here:
 
 | Field name                | Example value | Description                 |
 |-----------------|---------------|---------------------------------------|
-| event_origin    | Yes           | Measurament Protocol                  |
-| event_date      | 2024-01-01    | Event date                            |
 | event_name      | purchase      | Event name (do not use get_user_data) |
+| event_date      | 2024-01-01    | Event date                            |
 | event_timestamp | 1722607958646 | Event timestamp in milliseconds       |
+| event_origin    | Yes           | Measurament Protocol                  |
 | client_id       |               |                                       |
 | session_id      |               |                                       |
 | page_id         |               |                                       |
@@ -38,8 +38,9 @@ Start from here:
 # PYTHON EXAMPLE CODE  
 # 
 # Always include in the request:
-# - event_name: 
-# - event_timestamp:
+# - event_name as string
+# - event_timestamp in milliseconds as integer
+# - event_date as string
 # - event_origin = 'Measurement Protocol'
 # - client_id = 15 chars alphanumeric random string
 # - session_id = client_id + 15 chars alphanumeric random string

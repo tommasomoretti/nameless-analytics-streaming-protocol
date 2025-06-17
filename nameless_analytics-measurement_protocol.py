@@ -2,8 +2,9 @@
 # PYTHON EXAMPLE CODE  
 # 
 # Always include in the request:
-# - event_name: 
-# - event_timestamp:
+# - event_name as string
+# - event_timestamp in milliseconds as integer
+# - event_date as string
 # - event_origin = 'Measurement Protocol'
 # - client_id = 15 chars alphanumeric random string
 # - session_id = client_id + 15 chars alphanumeric random string
