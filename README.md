@@ -19,16 +19,17 @@ Start from here:
 
 ## Required fields
 
-| Field name      | Example value                   | Description                           |
-|-----------------|---------------------------------|---------------------------------------|
-| event_name      | purchase                        | Event name (do not use get_user_data) |
-| event_date      | 2024-01-01                      | Event date                            |
-| event_timestamp | 1722607958646                   | Event timestamp in milliseconds       |
-| event_origin    | Measurament Protocol            | Event origin                          |
-| client_id       | qHjbh0gJuQ6Zxj4                 | Client identifier                     |
-| session_id      | qHjbh0gJuQ6Zxj4_2BopUyohSmGPjWf | Session identifier                    |
-| page_id         | xyJ8W1E5mynYRtq                 | Unique page identifier                |
-| event_id        | xyJ8W1E5mynYRtq_553R4jpQk9ISmNK | Unique event identifier               |
+| **Parameter name**         | **Type** | **Field description**           |
+|----------------------------|----------|---------------------------------|
+| event_name                 | String   | Event name                      |
+| event_date                 | String   | Event date                      |
+| event_datetime             | String   | Event date and time             |
+| event_timestamp            | Integer  | Event timestamp                 |
+| event_origin               | String   | Event origin                    |
+| client_id                  | String   | Unique client identifier        |
+| session_id                 | String   | Unique session identifier       |
+| event_id                   | String   | Unique event identifier         |
+| page_id                    | String   | Unique page identifier          |
 
 
 
