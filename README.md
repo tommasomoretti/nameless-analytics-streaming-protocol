@@ -7,7 +7,7 @@
 
 # Streaming protocol
 
-The Nameless Analytics Streaming protocol is a method for send data to [Nameless Analytics Server-side client tag](https://github.com/tommasomoretti/nameless-analytics-server-side-client-tag/).
+The Nameless Analytics Streaming protocol is a python script that sends data to [Nameless Analytics Server-side client tag](https://github.com/tommasomoretti/nameless-analytics-server-side-client-tag/).
 
 For an overview of how Nameless Analytics works [start from here](https://github.com/tommasomoretti/nameless-analytics/).
 
