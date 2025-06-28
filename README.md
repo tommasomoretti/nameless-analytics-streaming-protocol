@@ -33,7 +33,7 @@ Table of contents:
 
 
 
-## Send Streaming protocol requests 
+## Send requests 
 ```python
 # NAMELESS ANALYTICS STREAMING PROTOCOL 
 # 
