@@ -35,14 +35,13 @@ Table of contents:
 
 ## Send Streaming protocol requests 
 ```python
-# NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
-# PYTHON EXAMPLE CODE  
+# NAMELESS ANALYTICS STREAMING PROTOCOL 
 # 
 # Always include in the request:
 # - event_name as string
 # - event_timestamp in milliseconds as integer
 # - event_date as string
-# - event_origin = 'Measurement Protocol'
+# - event_origin = 'Streaming Protocol'
 # - client_id = 15 chars alphanumeric random string
 # - session_id = client_id + 15 chars alphanumeric random string
 # - page_id = 15 chars alphanumeric random string
@@ -57,15 +56,15 @@ from datetime import datetime, timezone
 # --------------------------------------------------------------------------------------------------------------
 
 
-full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless' # Modify this according to your GTM Server-side endpoint 
-origin = 'https://tommasomoretti.com' # Modify this according to request origin
+full_endpoint = 'https://gtm.domain.com/nameless_analytics' # Modify this according to your GTM Server-side endpoint 
+origin = 'https://domain.com' # Modify this according to request origin
 gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NzdlNTU0YmM5YWY0MGJjOTQ5Yw==' # Modify this according with GTM Server-side preview header 
 
 event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 event_datetime = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec='microseconds')
 event_timestamp = int(datetime.now(timezone.utc).timestamp() * 1000)
 processing_event_timestamp = None
-event_origin = 'Measurement Protocol'
+event_origin = 'Streaming Protocol'
 job_id = secrets.token_hex(8)
 client_id = 'iURYgLE478F7TZU' # Modify this according to the current user's client_id
 user_id = None # Add it if exists
