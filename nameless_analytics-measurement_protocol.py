@@ -20,8 +20,8 @@ from datetime import datetime, timezone
 # --------------------------------------------------------------------------------------------------------------
 
 
-full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless' # Modify this according to your GTM Server-side endpoint 
-origin = 'https://tommasomoretti.com' # Modify this according to request origin
+full_endpoint = 'https://gtm.domain.com/nameless_analytics' # Modify this according to your GTM Server-side endpoint 
+origin = 'https://domain.com' # Modify this according to request origin
 gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5NzdlNTU0YmM5YWY0MGJjOTQ5Yw==' # Modify this according with GTM Server-side preview header 
 
 event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
