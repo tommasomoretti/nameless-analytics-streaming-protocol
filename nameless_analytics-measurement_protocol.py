@@ -26,7 +26,7 @@ from datetime import datetime, timezone
 
 full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless' 
 origin = 'https://tommasomoretti.com'
-gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5N2MyZmRiODJjMzYzZTQ3OGFiMQ==' 
+gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5N2M0ZDZjZjRiYjRjMDA1ZWFlNw==' 
 
 
 event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
