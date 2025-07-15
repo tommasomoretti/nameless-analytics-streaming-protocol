@@ -12,7 +12,7 @@ For an overview of how Nameless Analytics works [start from here](https://github
 Table of contents:
 - [Required parameters](#required-fields)
 - [Send Streaming protocol requests](#send-streaming-protocol-requests)
-- [Caveats](#caveats)
+
 
 
 ## Required parameters
@@ -32,10 +32,7 @@ Table of contents:
 
 
 ## Send requests 
-
-
-Please note: Streaming protocol requests do not carry any cookies, and since the Nameless Analytics Server-side client tag relies on cookies in the request to manage new users and new sessions, if a request has event_origin = 'Website' but contains no cookies, new client_id and session_id values will always be created. As a result, the client_id and session_id parameters in the request will be overridden with those values.
-
+Please note: Always use event_origin 'Streaming protocol'.
 
 ---
 
