@@ -107,6 +107,7 @@ declare main_table_sql string default format(
   """
 , main_table_path);
 
+<<<<<<< Updated upstream
 
 # Dates table
 declare dates_table_sql string default FORMAT(
@@ -144,6 +145,19 @@ declare dates_table_sql string default FORMAT(
     );
   """
 , dates_table_path);
+=======
+event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+event_datetime = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec='microseconds')
+event_timestamp = int(datetime.now(timezone.utc).timestamp() * 1000)
+processing_event_timestamp = None
+event_origin = 'Streaming protocol'
+client_id = 'iURYgLE478F7TZU' # Modify this according to the current user's client_id
+user_id = None # Add it if exists
+session_id = 'iURYgLE478F7TZU_vh5IxJjEiYxKOhh' # Modify this according to the current user's session_id
+event_name = 'purchase' # Modify this according to the event to be sent
+page_id = 'A4adxB8qx2tZy' # Modify this according to the current user's page_id
+event_id = f'{page_id}_{secrets.token_hex(8)}'
+>>>>>>> Stashed changes
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
