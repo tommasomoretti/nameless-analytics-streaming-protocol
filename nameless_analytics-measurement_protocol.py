@@ -34,7 +34,6 @@ event_datetime = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(times
 event_timestamp = int(datetime.now(timezone.utc).timestamp() * 1000)
 processing_event_timestamp = None
 event_origin = 'Streaming protocol'
-job_id = secrets.token_hex(8)
 client_id = 'iURYgLE478F7TZU' # Modify this according to the current user's client_id
 user_id = None # Add it if exists
 session_id = 'iURYgLE478F7TZU_vh5IxJjEiYxKOhh' # Modify this according to the current user's session_id
@@ -52,7 +51,6 @@ payload = {
     "event_datetime": event_datetime,
     "event_timestamp": event_timestamp,
     "event_origin": event_origin,
-    "job_id": job_id,
     "client_id": client_id,
     "session_id": session_id,
     "event_name": event_name,
