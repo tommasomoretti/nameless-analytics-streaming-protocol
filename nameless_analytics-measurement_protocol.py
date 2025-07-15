@@ -1,151 +1,34 @@
-# NAMELESS ANALYTICS
+# NAMELESS ANALYTICS MEASUREMENT PROTOCOL 
+# PYTHON EXAMPLE CODE  
+# 
+# Always include in the request:
+# - event_name as string
+# - event_timestamp in milliseconds as integer
+# - event_date as string
+# - event_origin = 'Measurement Protocol'
+# - client_id = 15 chars alphanumeric random string
+# - session_id = client_id + 15 chars alphanumeric random string
+# - page_id = 15 chars alphanumeric random string
+# - event_id = page_id + 15 chars alphanumeric random string
 
-declare project_name string default 'tom-moretti';  -- Change this
-declare dataset_name string default 'nameless_analytics'; -- Change this
-declare dataset_location string default 'eu'; -- Change this
-
-# Tables
-declare main_table_name string default 'events_raw';
-declare dates_table_name string default 'calendar_dates';
-
-declare main_dataset_path string default CONCAT('`', project_name, '.', dataset_name, '`');
-declare main_table_path string default CONCAT('`', project_name, '.', dataset_name, '.', main_table_name,'`');
-declare dates_table_path string default CONCAT('`', project_name, '.', dataset_name, '.', dates_table_name,'`');
-
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-# Enable BigQuery advanced runtime (for more info https://cloud.google.com/bigquery/docs/advanced-runtime)
-declare enable_bigquery_advanced_runtime string default format(
-  """
-    ALTER PROJECT `%s`
-    SET OPTIONS (
-      `region-%s.query_runtime` = 'advanced' # default null
-    );
-  """
-, project_name, dataset_location);
+import requests
+import secrets
+import json
+from datetime import datetime, timezone
 
 
-
-# Main dataset (for more info https://cloud.google.com/bigquery/docs/datasets#sql)
-declare main_dataset_sql string default format(
-  """
-    create schema if not exists %s
-    options (
-      # default_kms_key_name = 'KMS_KEY_NAME',
-      # default_partition_expiration_days = PARTITION_EXPIRATION,
-      # default_table_expiration_days = TABLE_EXPIRATION,
-      # max_time_travel_hours = HOURS, # default 168 hours => 7 days 
-      # storage_billing_model = BILLING_MODEL # Phytical or logical (default)  
-      description = 'Nameless Analytics',
-      location = '%s'
-    );
-  """
-, main_dataset_path, dataset_location);
+# --------------------------------------------------------------------------------------------------------------
 
 
-# Main table
-declare main_table_sql string default format(
-  """
-    create table if not exists %s (
-      event_date DATE NOT NULL OPTIONS (description = 'Date of the request'),
-      event_datetime DATETIME OPTIONS (description = 'Datetime of the request'),
-      event_timestamp INT64 NOT NULL OPTIONS (description = 'Insert timestamp of the event'),
-      processing_event_timestamp INT64 OPTIONS (description = ' Nameless Analytics Server-side Client Tag received event timestamp when hits are sent from a website or a Streaming Protocol request. Script start execution timestamp if hits are imported by Nameless Analytics Data Loader.'),
-      event_origin STRING NOT NULL OPTIONS (description = '"Streaming Protocol" if the hit comes from streaming protocol, "Website" if the hit comes from browser'),
-      content_length INT64 OPTIONS (description = 'Size of the message body, in bytes'),
-      client_id STRING NOT NULL OPTIONS (description = 'Client ID'),
-      user_data ARRAY<
-        STRUCT<
-          name STRING OPTIONS (description = 'User data parameter name'),
-          value STRUCT<
-            string STRING OPTIONS (description = 'User data parameter string value'),
-            int INT64 OPTIONS (description = 'User data parameter int number value'),
-            float FLOAT64 OPTIONS (description = 'User data parameter float number value'),
-            json JSON OPTIONS (description = 'User data parameter JSON value')
-          > OPTIONS (description = 'User data parameter value name')
-        >
-      > OPTIONS (description = 'User data'),
-      session_id STRING NOT NULL OPTIONS (description = 'Session ID'),
-      session_data ARRAY<
-        STRUCT<
-          name STRING OPTIONS (description = 'Session data parameter name'),
-          value STRUCT<
-            string STRING OPTIONS (description = 'Session data parameter string value'),
-            int INT64 OPTIONS (description = 'Session data parameter int number value'),
-            float FLOAT64 OPTIONS (description = 'Session data parameter float number value'),
-            json JSON OPTIONS (description = 'Session data parameter JSON value')
-          > OPTIONS (description = 'Session data parameter value name')
-        >
-      > OPTIONS (description = 'Session data'),   
-      event_id STRING NOT NULL OPTIONS (description = 'Event ID'),
-      event_name STRING NOT NULL OPTIONS (description = 'Event name'),
-      event_data ARRAY<
-        STRUCT<
-          name STRING OPTIONS (description = 'Event data parameter name'),
-          value STRUCT<
-            string STRING OPTIONS (description = 'Event data parameter string value'),
-            int INT64 OPTIONS (description = 'Event data parameter int number value'),
-            float FLOAT64 OPTIONS (description = 'Event data parameter float number value'),
-            json JSON OPTIONS (description = 'Event data parameter JSON value')
-          > OPTIONS (description = 'Event data parameter value name')
-        >
-      > OPTIONS (description = 'Event data'),
-      ecommerce JSON OPTIONS (description = 'Ecommerce object'),
-      datalayer JSON OPTIONS (description = 'Current dataLayer value'),
-      consent_data ARRAY<
-        STRUCT<
-          name STRING OPTIONS (description = 'Consent data parameter name'),
-          value STRUCT<
-            string STRING OPTIONS (description = 'Consent data parameter string value')
-          > OPTIONS (description = 'Consent data parameter value name')
-        >
-      > OPTIONS (description = 'Consent data')
-    )
-    PARTITION BY event_date
-    CLUSTER BY client_id, session_id, event_name
-    OPTIONS (description = 'Nameless Analytics | Main table');
-  """
-, main_table_path);
+# full_endpoint = 'https://gtm.domain.com/nameless_analytics' # Modify this according to your GTM Server-side endpoint 
+# origin = 'https://domain.com' # Modify this according to request origin
+# gtm_preview_header = '[X-Gtm-Server-Preview]' # Modify this according with GTM Server-side preview header 
 
-<<<<<<< Updated upstream
+full_endpoint = 'https://gtm.tommasomoretti.com/tm/nameless' 
+origin = 'https://tommasomoretti.com'
+gtm_preview_header = 'ZW52LTEwMnxUWk9Pd1l1SW5YWFU0eFpzQlMtZHN3fDE5N2M0ZDZjZjRiYjRjMDA1ZWFlNw==' 
 
-# Dates table
-declare dates_table_sql string default FORMAT(
-  """
-    create table if not exists %s (
-      date DATE NOT NULL OPTIONS(description = "The date value"),
-      year INT64 OPTIONS(description = "Year extracted from the date"),
-      quarter INT64 OPTIONS(description = "Quarter of the year (1-4) extracted from the date"),
-      month_number INT64 OPTIONS(description = "Month number of the year (1-12) extracted from the date"),
-      month_name STRING OPTIONS(description = "Full name of the month (e.g., January) extracted from the date"),
-      week_number_sunday INT64 OPTIONS(description = "Week number of the year, starting on Sunday"),
-      week_number_monday INT64 OPTIONS(description = "Week number of the year, starting on Monday"),  
-      day_number INT64 OPTIONS(description = "Day number of the month (1-31)"),
-      day_name STRING OPTIONS(description = "Full name of the day of the week (e.g., Monday)"),
-      day_of_week_number INT64 OPTIONS(description = "Day of the week number (1 for Monday, 7 for Sunday)"),
-      is_weekend BOOL OPTIONS(description = "True if the day is Saturday or Sunday")
-    ) PARTITION BY DATE_TRUNC(date, year)
-      CLUSTER BY month_name, day_name
-      OPTIONS (description = 'Nameless Analytics | Dates utility table')
-      AS
-    (
-      SELECT 
-        date,
-        EXTRACT(YEAR FROM date) AS year,
-        EXTRACT(QUARTER FROM date) AS quarter,
-        EXTRACT(MONTH FROM date) AS month_number,
-        FORMAT_DATE('%%B', date) AS month_name,
-        EXTRACT(WEEK(SUNDAY) FROM date) AS week_number_sunday,
-        EXTRACT(WEEK(MONDAY) FROM date) AS week_number_monday,
-        EXTRACT(DAY FROM date) AS day_number,
-        FORMAT_DATE('%%A', date) AS day_name,
-        EXTRACT(DAYOFWEEK FROM date) AS day_of_week_number, 
-        IF(EXTRACT(DAYOFWEEK FROM date) IN (1, 7), TRUE, FALSE) AS is_weekend
-      FROM UNNEST(GENERATE_DATE_ARRAY('1970-01-01', '2050-12-31', INTERVAL 1 DAY)) AS date
-    );
-  """
-, dates_table_path);
-=======
+
 event_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
 event_datetime = datetime.now(timezone.utc).replace(tzinfo=None).isoformat(timespec='microseconds')
 event_timestamp = int(datetime.now(timezone.utc).timestamp() * 1000)
@@ -157,14 +40,166 @@ session_id = 'iURYgLE478F7TZU_vh5IxJjEiYxKOhh' # Modify this according to the cu
 event_name = 'purchase' # Modify this according to the event to be sent
 page_id = 'A4adxB8qx2tZy' # Modify this according to the current user's page_id
 event_id = f'{page_id}_{secrets.token_hex(8)}'
->>>>>>> Stashed changes
 
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------
 
 
-# Create tables 
-execute immediate enable_bigquery_advanced_runtime;
-execute immediate main_dataset_sql;
-execute immediate main_table_sql;
-execute immediate dates_table_sql;
+# Minimum required fields
+payload = {
+    "event_date": event_date,
+    "event_datetime": event_datetime,
+    "event_timestamp": event_timestamp,
+    "event_origin": event_origin,
+    "client_id": client_id,
+    "session_id": session_id,
+    "event_name": event_name,
+    "event_id": event_id,
+    "event_data": {
+        "page_id": page_id,
+    },
+    "user_data": {},
+    "session_data": {},
+}
+
+
+# Recommended fields
+# {
+#   "user_data": {
+#     "user_id": "abcd1234"
+#     "custom_user_property": "abcd", // add custom session properties
+#   },
+#   "session_data": {
+#     "custom_session_property": "abcd" // add custom session properties
+#   },
+#   "event_data": {
+#     "event_type": "page_view",
+#     "channel_grouping": "direct",
+#     "source": "direct",
+#     "campaign": null,
+#     "campaign_id": null,
+#     "campaign_term": null,
+#     "campaign_content": null,
+#     "page_title": "Tommaso Moretti | Freelance digital data analyst",
+#     "page_hostname_protocol": "https",
+#     "page_hostname": "tommasomoretti.com",
+#     "page_location": "/",
+#     "page_fragment": null,
+#     "page_query": null,
+#     "page_extension": null,
+#     "page_referrer": null,
+#     "page_language": "it"
+#     "cs_container_id": "GTM-PW7349P",
+#     "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+#     "browser_name": "Chrome",
+#     "browser_language": "it-IT",
+#     "browser_version": "135.0.0.0",
+#     "device_type": "desktop",
+#     "device_vendor": "Apple",
+#     "device_model": "Macintosh",
+#     "os_name": "Mac OS",
+#     "os_version": "10.15.7",
+#     "screen_size": "1512x982",
+#     "viewport_size": "1512x823",
+#   },
+#   "consent_data": { # Retrieve this information in real time calling window.get_last_consent_values() JavaScript utility function or later from BigQuery by taking it from the last event recorded on the page of the event to be sent
+#     "respect_consent_mode": "Yes", # Not available when using window.get_last_consent_values(). Retrieve this information from the Nameless Analytics Client-side configuration variable tag configuration (optional).
+#     "consent_type": "Update",
+#     "ad_user_data": "Denied",
+#     "ad_personalization": "Denied",
+#     "ad_storage": "Denied",
+#     "analytics_storage": "Granted",
+#     "functionality_storage": "Denied",
+#     "personalization_storage": "Denied",
+#     "security_storage": "Denied"
+#   }
+# }
+
+
+# Automatically added fields (do not add them manually, they will be overwritten by the server)
+# {
+#   "user_data": {
+#     "user_id": "cs",
+#     "user_property": "ss",
+#     "user_date": "2025-06-30",
+#     "user_channel_grouping": "direct",
+#     "user_source": "direct",
+#     "user_tld_source": "direct",
+#     "user_campaign": null,
+#     "user_campaign_id": null,
+#     "user_device_type": "desktop",
+#     "user_country": "IT",
+#     "user_language": "it-IT",
+#     "user_last_session_timestamp": 1751299458692,
+#     "user_first_session_timestamp": 1751299458692
+#   },
+#   "session_data": {
+#     "session_date": "2025-06-30",
+#     "session_number": 1,
+#     "cross_domain_session": "No",
+#     "session_channel_grouping": "direct",
+#     "session_source": "direct",
+#     "session_tld_source": "direct",
+#     "session_campaign": null,
+#     "session_campaign_id": null,
+#     "session_device_type": "desktop",
+#     "session_country": "IT",
+#     "session_language": "it-IT",
+#     "session_hostname": "tommasomoretti.com",
+#     "session_browser_name": "Chrome",
+#     "session_landing_page_location": "/",
+#     "session_landing_page_title": "Tommaso Moretti | Freelance digital data analyst",
+#     "session_exit_page_location": "/",
+#     "session_exit_page_title": "Tommaso Moretti | Freelance digital data analyst",
+#     "session_end_timestamp": 1751299458692,
+#     "session_property": "ss",
+#     "session_start_timestamp": 1751299458692
+#   },
+#   "event_data": {
+#     "country": "IT",
+#     "city": "venice",
+#     "ss_hostname": "gtm.tommasomoretti.com",
+#     "ss_container_id": "GTM-KQG9ZNG"
+#   },
+#   "processing_event_timestamp": 1746342471183,
+#   "content_length": 1371
+# }
+
+
+print("----- NAMELESS ANALYTICS -----")
+print("--------- DATA LOADER --------")
+print("Function execution start: 🤞")
+print('👉 Send request to ' + full_endpoint)
+
+headers = {
+    'Content-Type': 'application/json',
+    'Origin': origin,
+    'X-Gtm-Server-Preview': gtm_preview_header,
+}
+
+try:
+    response = requests.post(full_endpoint, json=payload, headers=headers)
+    response.raise_for_status()
+    response_json = response.json()
+    
+    if "response" in response_json:
+        response_json["response"] = bytes(response_json["response"], "latin1").decode("utf-8")
+
+    print(" ", response_json.get("response"))
+    
+    response_data = json.dumps(response_json.get("data", "No data"), indent=2, ensure_ascii=False)
+    indented_response = "\n".join(["  " + line for line in response_data.splitlines()])
+    print("  👉 Request response: ")
+    print(indented_response)
+    print("Function execution end: 👍")
+
+
+except requests.exceptions.RequestException as e:
+    try:
+        error_response = e.response.json()
+        if "response" in error_response:
+            error_response["response"] = bytes(error_response["response"], "latin1").decode("utf-8")
+        print("  ", error_response.get("response", "No data"))
+        raise 
+    except:
+        print('🔴 Request failed:', str(e))
